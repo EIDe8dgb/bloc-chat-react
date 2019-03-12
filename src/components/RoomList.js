@@ -38,16 +38,23 @@ class RoomList extends Component{
   render(){
     return(
       <section>
+
       <h1>Bloc Chat Rooms</h1>
       <nav className='chatRooms'>
         <ul>
           {
             this.state.rooms.map((room,index) =>
-              <li key={index}>{room.name}</li>
+              <li
+              key={index}
+              onClick={(room)=> this.props.handleRoomClick(room)}
+              >
+              {room.name}
+              </li>
             )
           }
         </ul>
       </nav>
+
       <form onSubmit={(e)=> this.createRoom(e)}>
         <label for id='newRoomText'>Create a new room</label>
         <input
@@ -61,6 +68,7 @@ class RoomList extends Component{
         type = 'submit'
         />
       </form>
+
       </section>
     );
   }
