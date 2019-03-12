@@ -3,14 +3,7 @@ import React, {Component} from 'react';
 class MessageList extends Component {
   constructor(props){
     super(props);
-    this.state = {
-       messages: [],
-       username: '',
-       content: '',
-       sentAt: '',
-       roomId: ''
-     };
-
+    this.state = { messages: [] };
     this.messagesRef = this.props.firebase.database().ref('messages');
   }
 
@@ -22,9 +15,6 @@ class MessageList extends Component {
         });
     }
 
-    
-
-
   render(){
     return(
       <div className='messageList'>
@@ -35,7 +25,7 @@ class MessageList extends Component {
           <h2>Messages</h2>
         {
           this.state.messages
-          .filter(message => message.roomId === this.props.currentRoom.key)
+          .filter((message) => message.roomId === this.props.currentRoom.key)
           .map( (message, index) =>
             <ul key={index}>
                 <li>user: {message.username}</li>
@@ -43,6 +33,7 @@ class MessageList extends Component {
                 <li>time sent: {message.sentAt}</li>
             </ul>
           )
+
         }
         </section>
       </div>

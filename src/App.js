@@ -20,7 +20,7 @@ import MessageList from './components/MessageList';
 class App extends Component {
   constructor(props){
     super(props);
-    this.state={ activeRoom: [] };
+    this.state={ activeRoom: []};
   }
 //end of constructor method
 
