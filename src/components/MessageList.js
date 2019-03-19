@@ -19,19 +19,23 @@ class MessageList extends Component {
     return(
       <div className='messageList'>
         <section>
-        {this.props.currentRoom}
+        <h3>{this.props.currentRoom.name}</h3>
         </section>
         <section>
           <h2>Messages</h2>
+          <h3>{this.props.currentRoom.key}</h3>
+          <h3>{console.log(this.state.messages)}</h3>
         {
-          this.state.messages
-          .filter((message) => message.roomId === this.props.currentRoom.key)
-          .map( (message, index) =>
-            <ul key={index}>
-                <li>user: {message.username}</li>
-                <li>message: {message.content}</li>
-                <li>time sent: {message.sentAt}</li>
-            </ul>
+          this.state.messages.map((message, index) =>
+            {
+              if(message.roomId == this.props.currentRoom.key) {
+              <ul key={index}>
+                  <li>user: {message.username}</li>
+                  <li>message: {message.content}</li>
+                  <li>time sent: {message.sentAt}</li>
+              </ul>
+            }
+          }
           )
 
         }

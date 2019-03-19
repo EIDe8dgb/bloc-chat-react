@@ -56,7 +56,7 @@ class RoomList extends Component{
       </nav>
 
       <form onSubmit={(e)=> this.createRoom(e)}>
-        <label for id='newRoomText'>Create a new room</label>
+        <label htmlFor='newRoomText'>Create a new room</label>
         <input
         id ='newRoomText'
         type ='text'
