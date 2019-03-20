@@ -15,23 +15,34 @@ class MessageList extends Component {
         });
     }
 
+    currentMessages(){
+      var messageCondition = this.state.messages.filter(message => message.roomId === this.props.currentRoom.key);
+      console.log(messageCondition);
+      return messageCondition;
+    }
+
     render() {
       return (
         <div>
           <section className="messages">
-            <p>{this.props.currentRoom.name}</p>
-            <ul>
-              {this.state.messages
-                .filter(message => message.roomId === this.props.currentRoom.key)
-                .map((message, index) => {
-                  return (
-                    <li key={index}>
-                      {message.username}
-                      {message.content}
-                    </li>
-                  );
-                })}
-            </ul>
+            <h2>{(this.props.currentRoom.name)}</h2>
+            <p>{console.log(this.props.currentRoom.key)}</p>
+            <p>{console.log(this.state.messages)}</p>
+            <nav>
+              {
+                this.state.messages
+                .filter(message => this.props.currentRoom.key == '-'+message.roomId)
+                .map((message,index) =>
+                  <div
+                  key={index}
+                  >
+                  <div>{message.content}</div>
+                  <div>{message.username}</div>
+                  <div>{message.sentAt}</div>
+                  </div>
+                )
+              }
+            </nav>
           </section>
         </div>
       );

@@ -39,21 +39,21 @@ class RoomList extends Component{
     return(
       <section>
 
-      <h1>Bloc Chat Rooms</h1>
-      <nav className='chatRooms'>
-        <ul>
+      <h1>BLOC CHAT REACT</h1>
+      <div className='chatRooms'>
+        <div>
           {
             this.state.rooms.map((room,index) =>
-              <li
+              <div
               key={index}
               onClick={()=> this.props.handleRoomClick(room)}
               >
               {room.name}
-              </li>
+              </div>
             )
           }
-        </ul>
-      </nav>
+        </div>
+      </div>
 
       <form onSubmit={(e)=> this.createRoom(e)}>
         <label htmlFor='newRoomText'>Create a new room</label>
