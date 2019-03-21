@@ -26,12 +26,10 @@ class MessageList extends Component {
         <div>
           <section className="messages">
             <h2>{(this.props.currentRoom.name)}</h2>
-            <p>{console.log(this.props.currentRoom.key)}</p>
-            <p>{console.log(this.state.messages)}</p>
             <nav>
               {
                 this.state.messages
-                .filter(message => this.props.currentRoom.key == '-'+message.roomId)
+                .filter(message => this.props.currentRoom.key === '-'+message.roomId)
                 .map((message,index) =>
                   <div
                   key={index}
