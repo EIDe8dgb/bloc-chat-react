@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 class MessageList extends Component {
   constructor(props){
     super(props);
-    this.state = { messages: [] };
+    this.state = { messages: [], newMessage:'' };
     this.messagesRef = this.props.firebase.database().ref('messages');
   }
 
@@ -15,10 +15,22 @@ class MessageList extends Component {
         });
     }
 
-    currentMessages(){
-      var messageCondition = this.state.messages.filter(message => message.roomId === this.props.currentRoom.key);
-      console.log(messageCondition);
-      return messageCondition;
+    handleNewMessage(e){
+      this.setState({newMessage: e.target.value});
+    }
+
+    createMessage(e){
+      e.preventDefault();
+      if(!this.state.newMessage){return}
+      const currentUser = this.props.user === null ? "Guest" : this.props.user.displayName;
+      const newestMessage = {
+        content: this.state.newMessage,
+        roomId: this.props.currentRoom.key,
+        sentAt: this.props.firebase.database.ServerValue.TIMESTAMP,
+        username: currentUser
+      };
+      this.messagesRef.push(newestMessage);
+      this.setState({newMessage: ''});
     }
 
     render() {
@@ -26,10 +38,11 @@ class MessageList extends Component {
         <div>
           <section className="messages">
             <h2>{(this.props.currentRoom.name)}</h2>
+            <h2>{(this.props.currentRoom.key)}</h2>
             <nav>
               {
                 this.state.messages
-                .filter(message => this.props.currentRoom.key === '-'+message.roomId)
+                .filter(message => this.props.currentRoom.key === message.roomId)
                 .map((message,index) =>
                   <div
                   key={index}
@@ -41,6 +54,24 @@ class MessageList extends Component {
                 )
               }
             </nav>
+          </section>
+          <section>
+          <form onSubmit={(e)=> this.createMessage(e)}>
+            <label htmlFor='newMessageText'>Create a new message</label>
+            <textarea
+            id ='newMessageText'
+            type ='text'
+            placeholder ='enter new message here...'
+            value = {this.state.newMessage}
+            onChange={(e)=> this.handleNewMessage(e)}
+            rows='5'
+            cols='50'
+            >
+            </textarea>
+            <input
+            type = 'submit'
+            />
+          </form>
           </section>
         </div>
       );
